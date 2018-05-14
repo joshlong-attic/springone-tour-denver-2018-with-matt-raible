@@ -1,0 +1,10 @@
+---
+apiVersion: projectriff.io/v1alpha1
+kind: Function
+metadata:
+  name: up
+spec:
+  container:
+    image: jlong/up:0.0.1
+  input: up
+  protocol: grpc
