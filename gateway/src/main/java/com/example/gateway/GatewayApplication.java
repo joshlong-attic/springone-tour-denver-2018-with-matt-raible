@@ -24,38 +24,10 @@ public class GatewayApplication {
 						.filters(f -> f
 							.requestRateLimiter(c ->
 								c.setRateLimiter(redisRateLimiter())
-								.setKeyResolver(new PrincipalNameKeyResolver())
 							)
 						)
 						.uri("http://spring.io:80/guides"))
 					.build();
-		}
-
-		@Bean
-		MapReactiveUserDetailsService authentication() {
-				return new MapReactiveUserDetailsService(
-						User
-							.withDefaultPasswordEncoder()
-							.username("user")
-							.password("password")
-							.roles("USER")
-							.build());
-		}
-
-		@Bean
-		SecurityWebFilterChain authorization(ServerHttpSecurity security) {
-				//@formatter:off
-				return
-					security
-						.csrf().disable()
-						.httpBasic()
-						.and()
-						.authorizeExchange()
-								.pathMatchers("/proxy").authenticated()
-								.anyExchange().permitAll()
-						.and()
-						.build();
-				//@formatter:on
 		}
 
 		@Bean
